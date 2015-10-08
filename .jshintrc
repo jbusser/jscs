@@ -1,0 +1,14 @@
+{
+  "predef": [
+    "QUnit",
+    "asyncTest",
+    "console",
+    "equal",
+    "ok",
+    "process",
+    "require",
+    "start",
+    "test"
+  ],
+  "camelcase": false
+}

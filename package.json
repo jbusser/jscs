@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "qunit -c index.js -t tests/**/*-test.js"
+    "test": "qunit -c index.js -t tests/*-test.js"
   },
   "repository": {
     "type": "git",
@@ -26,6 +26,11 @@
   "dependencies": {
     "jscs": "^2.2.1",
     "node-resque": "^1.0.2",
-    "redis": "^2.1.0"
+    "redis": "^2.1.0",
+    "rsvp": "^3.1.0"
+  },
+  "devDependencies": {
+    "fakeredis": "^0.3.3",
+    "qunit": "^0.7.7"
   }
 }
