@@ -17,15 +17,15 @@ asyncTest("Linter communicates over resque", function() {
     queueName: "high",
   });
   var linter = new Linter(outbound);
-
-  linter.lint({
+  var inboundJob = {
     content: "// TODO",
     config: "{ \"disallowKeywordsInComments\": true }",
     filename: "filename",
     commit_sha: "commit_sha",
     pull_request_number: "pull_request_number",
     patch: "patch",
-  }).then(function() {
+  };
+  linter.lint(inboundJob).then(function() {
     lastJob(redis, "high", function(job) {
       start();
       var payload = job.args[0];
@@ -33,14 +33,26 @@ asyncTest("Linter communicates over resque", function() {
 
       ok(violation.message.match(/todo/i), "includes the proper message");
       equal(violation.line, 1, "includes the proper line");
-      equal(job.filename, job.filename, "passes through filename");
-      equal(job.commit_sha, job.commit_sha, "passes through commit_sha");
       equal(
-        job.pull_request_number,
-        job.pull_request_number,
+        payload.filename,
+        inboundJob.filename,
+        "passes through filename"
+      );
+      equal(
+        payload.commit_sha,
+        inboundJob.commit_sha,
+        "passes through commit_sha"
+      );
+      equal(
+        payload.pull_request_number,
+        inboundJob.pull_request_number,
         "passes through pull_request_number"
       );
-      equal(job.patch, job.patch, "passes through patch");
+      equal(
+        payload.patch,
+        inboundJob.patch,
+        "passes through patch"
+      );
     });
   });
 });

@@ -15,14 +15,19 @@ var outbound = new Queue({
 
 var linter = new Linter(outbound);
 
-var worker = new Resque.worker({
+var worker = new Resque.multiWorker({
   connection: { redis: redis },
   queues: ["jscs_review"],
 }, {
-  "JscsReviewJob": linter.lint.bind(linter),
+  "JscsReviewJob": function(payload, callback) {
+    linter.lint(payload).finally(callback);
+  }
 });
 
-worker.connect(function() {
-  worker.workerCleanup();
-  worker.start();
+worker.start();
+
+process.on("SIGINT", function(){
+  worker.end(function(){
+    process.exit();
+  });
 });
