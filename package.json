@@ -1,6 +1,9 @@
 {
   "name": "hound-jscs",
   "version": "0.0.1",
+  "engines": {
+    "node": "4.1.1"
+  },
   "description": "JSCS Linter for Hound",
   "main": "index.js",
   "scripts": {
@@ -25,7 +28,7 @@
   "homepage": "https://github.com/thoughtbot/hound-jscs#readme",
   "dependencies": {
     "jscs": "^2.2.1",
-    "node-resque": "^1.0.2",
+    "node-resque": "^1.1.1",
     "redis": "^2.1.0",
     "rsvp": "^3.1.0"
   },
