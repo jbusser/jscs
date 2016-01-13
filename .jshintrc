@@ -3,6 +3,7 @@
     "QUnit",
     "asyncTest",
     "console",
+    "deepEqual",
     "equal",
     "ok",
     "process",

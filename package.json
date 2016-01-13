@@ -27,6 +27,7 @@
   },
   "homepage": "https://github.com/thoughtbot/hound-jscs#readme",
   "dependencies": {
+    "hound-javascript": "0.0.1",
     "jscs": "^2.6.0",
     "node-resque": "^1.1.1",
     "redis": "^2.1.0",
