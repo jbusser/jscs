@@ -2,7 +2,7 @@ var Config = require("../lib/config");
 
 QUnit.module("Config");
 
-test("Parsing an JSCS config file", function() {
+test("Parsing a JSCS config file", function() {
   var config = new Config("{ \"esnext\": true }");
 
   deepEqual(
