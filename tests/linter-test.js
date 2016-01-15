@@ -47,6 +47,42 @@ asyncTest("JSCS linting", function() {
   });
 });
 
+asyncTest("JSCS linting with an unknown preset", function() {
+  var payload = {
+    content: "// TODO",
+    config: "{ \"preset\": \"unknown-preset\" }",
+    filename: "filename",
+    commit_sha: "commit_sha",
+    pull_request_number: "pull_request_number",
+    patch: "patch",
+  };
+  var redis = Redis.createClient();
+  var houndJavascript = new HoundJavascript(redis);
+  var linter = new Linter(houndJavascript);
+
+  linter.lint(payload).then(function() {
+    lastJob(redis, "high", function(job) {
+      start();
+
+      equal(
+        job.class,
+        "ReportInvalidConfigJob",
+        "pushes the proper job type"
+      );
+      deepEqual(
+        job.args[0],
+        {
+          pull_request_number: "pull_request_number",
+          commit_sha: "commit_sha",
+          linter_name: "jscs",
+          message: "Error parsing config for: jscs. Preset \"unknown-preset\" does not exist",
+        },
+        "pushes a job onto the queue"
+      );
+    });
+  });
+});
+
 asyncTest("Reporting an invalid configuration file", function() {
   var payload = {
     content: "// TODO",
