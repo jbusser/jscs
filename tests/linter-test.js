@@ -10,6 +10,7 @@ asyncTest("JSCS linting", function() {
     content: "// TODO",
     config: "{ \"disallowKeywordsInComments\": true }",
     filename: "filename",
+    linter_name: "hound_assigned_name",
     commit_sha: "commit_sha",
     pull_request_number: "pull_request_number",
     patch: "patch",
@@ -37,6 +38,7 @@ asyncTest("JSCS linting", function() {
             },
           ],
           filename: "filename",
+          linter_name: "hound_assigned_name",
           commit_sha: "commit_sha",
           pull_request_number: "pull_request_number",
           patch: "patch",
@@ -52,6 +54,7 @@ asyncTest("JSCS linting with an unknown preset", function() {
     content: "// TODO",
     config: "{ \"preset\": \"unknown-preset\" }",
     filename: "filename",
+    linter_name: "hound_assigned_name",
     commit_sha: "commit_sha",
     pull_request_number: "pull_request_number",
     patch: "patch",
@@ -74,7 +77,7 @@ asyncTest("JSCS linting with an unknown preset", function() {
         {
           pull_request_number: "pull_request_number",
           commit_sha: "commit_sha",
-          linter_name: "jscs",
+          linter_name: "hound_assigned_name",
           message: "Error parsing config for: jscs. Preset \"unknown-preset\" does not exist",
         },
         "pushes a job onto the queue"
@@ -88,6 +91,7 @@ asyncTest("Reporting an invalid configuration file", function() {
     content: "// TODO",
     config: "---\nyaml: is good\ntrue/false/syntax/error",
     filename: "filename",
+    linter_name: "hound_assigned_name",
     commit_sha: "commit_sha",
     pull_request_number: "pull_request_number",
     patch: "patch",
@@ -110,7 +114,7 @@ asyncTest("Reporting an invalid configuration file", function() {
         {
           commit_sha: "commit_sha",
           pull_request_number: "pull_request_number",
-          linter_name: "jscs",
+          linter_name: "hound_assigned_name",
         },
         "pushes a job onto the queue"
       );
